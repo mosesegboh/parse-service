@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+    <div class="row mx-auto justify-content-center align-items-center flex-column" style="width: 48rem;">
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="mt-5 alert alert-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <h3 class="card-title" style="margin-top: 100px;">NEWS ARTICLES</h3>
+        <hr>
+        {% for article in pagination %}
+            <img class="card-img-top mt-5" src="{{ article.picture }}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{ article.title }}</h5>
+                <p class="card-text">{{ article.description }}</p>
+                <h5 class="card-title">{{ article.dateAdded |date('d-m-Y') }}</h5>
+                    <p class="card-text"><a href="{{ path('delete_article', {'id': article.id}) }}">Trash</a></p>
+            </div>
+            <hr>
+        {% endfor %}
+
+        <div style="justify-content: center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    </div>
+{% endblock %}
