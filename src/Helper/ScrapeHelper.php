@@ -68,8 +68,6 @@ class ScrapeHelper
                 continue;
             }
 
-            $entityManager->persist($article);
-            $entityManager->flush();
             echo 'Successfully added with id '. $article->getId() . "\r\n";
         }
     }

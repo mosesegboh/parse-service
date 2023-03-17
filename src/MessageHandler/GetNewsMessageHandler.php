@@ -25,8 +25,6 @@ class GetNewsMessageHandler
 
     public function __invoke(GetNewsMessage $message)
     {
-        $arg1 = $message->getArg1();
-
         $this->scrapeHelper->getNodes(
             $this->scrapeHelper->fetchContent('https://highload.today/category/novosti/'),
             $this->doctrine,
