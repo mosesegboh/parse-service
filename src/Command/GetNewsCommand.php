@@ -9,9 +9,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Helper\ScrapeHelper;
-use Doctrine\Persistence\ManagerRegistry;
-use App\Repository\ArticleRepository;
 use App\Message\GetNewsMessage;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -21,21 +18,12 @@ use Symfony\Component\Messenger\MessageBusInterface;
 )]
 class GetNewsCommand extends Command
 {
-    private $articleRepository;
-    private $scrapeHelper;
-    private $doctrine;
     private $bus;
 
     public function __construct(
-        ArticleRepository $articleRepository,
-        ScrapeHelper $scrapeHelper,
-        ManagerRegistry $doctrine,
         MessageBusInterface $bus
     ) {
         parent::__construct();
-        $this->articleRepository = $articleRepository;
-        $this->scrapeHelper = $scrapeHelper;
-        $this->doctrine = $doctrine;
         $this->bus = $bus;
     }
 
