@@ -62,12 +62,15 @@ class ScrapeHelper
             $isArticleAlreadyInDatabase = $articleRepository->findOneByTitle($title);
             if ($isArticleAlreadyInDatabase) {
                 $articleToUpdate = $entityManager->getRepository(Article::class)->find($isArticleAlreadyInDatabase->getId());
-                $articleToUpdate->setNote('The last date updated is ' . $isArticleAlreadyInDatabase->getDateAdded()->format('d/m/Y'));
+                $articleToUpdate->setNote('The last date updated is ' . $isArticleAlreadyInDatabase->getLastUpdate()->format('d/m/Y'));
                 $articleToUpdate->setLastUpdate(new \DateTime());
+                $entityManager->persist($articleToUpdate);
                 $entityManager->flush();
                 continue;
             }
-
+            
+            $entityManager->persist($article);
+            $entityManager->flush();
             echo 'Successfully added with id '. $article->getId() . "\r\n";
         }
     }
